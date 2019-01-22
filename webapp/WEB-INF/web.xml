@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+	http://xmlns.jcp.org.xml/ns/javaee/web-app_3_1.xsd"
+	id="WebApp_ID" >
+	
+	<servlet>
+		<!-- 声明Dispatcher，告诉Web容器我们将使用springMVC的DispatcherServlet -->
+		<servlet-name>dispatcher</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<!-- DispatcherServlet在加载时会需要SpringMVC的配置文件，因此需要声明该配置文件的位置。 -->
+		<!-- 如果不配置该项，则应用会默认的去WEB-INF下寻找名字为[servlet-name]-servlet.xml的文件。 -->
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/springmvc-config.xml</param-value>
+		</init-param>
+	</servlet>
+	<!-- 不拦截静态资源，有一个mapping匹配就不会往后面走 -->
+	<servlet-mapping>
+	   <servlet-name>default</servlet-name>
+	   <url-pattern>*.js</url-pattern>
+	   <url-pattern>*.css</url-pattern>
+	   <url-pattern>/assets/*"</url-pattern>
+	   <url-pattern>/images/*</url-pattern>
+	</servlet-mapping>
+	<!-- 配置url-pattern,设置为 / 拦截所有的URL请求，并映射到dispatcher -->
+	<servlet-mapping>
+		<servlet-name>dispatcher</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+</web-app>
